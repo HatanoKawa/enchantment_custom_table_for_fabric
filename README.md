@@ -6,3 +6,6 @@
 
 This project is the **Fabric version** of the mod [Enchantment Custom Table](https://github.com/HatanoKawa/EnchantmentCustomTable).
 Please refer to the original project's README.md for detailed instructions and usage information.
+
+Known Issues:
+- no config file

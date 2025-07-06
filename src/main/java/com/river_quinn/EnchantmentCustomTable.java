@@ -1,8 +1,6 @@
 package com.river_quinn;
 
-import com.river_quinn.init.ModBlockEntities;
-import com.river_quinn.init.ModBlocks;
-import com.river_quinn.init.ModItems;
+import com.river_quinn.init.*;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -21,5 +19,7 @@ public class EnchantmentCustomTable implements ModInitializer {
 		ModItems.initialize();
 		ModBlocks.initialize();
 		ModBlockEntities.initialize();
+		ModScreensHandler.initialize();
+		ModPayloads.initialize();
 	}
 }

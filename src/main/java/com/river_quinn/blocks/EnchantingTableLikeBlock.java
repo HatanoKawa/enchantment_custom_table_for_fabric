@@ -69,25 +69,25 @@ public class EnchantingTableLikeBlock extends BlockWithEntity {
 //        return world.isClient ? validateTicker(type, BlockEntityType.ENCHANTING_TABLE, EnchantingTableBlockEntity::tick) : null;
 //    }
 
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
-        } else {
-            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
-            return ActionResult.CONSUME;
-        }
-    }
-
-    @Nullable
-    protected NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof EnchantingTableLikeBlockEntity) {
-            Text text = ((Nameable)blockEntity).getDisplayName();
-            return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) -> new EnchantmentScreenHandler(syncId, inventory, ScreenHandlerContext.create(world, pos)), text);
-        } else {
-            return null;
-        }
-    }
+//    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+//        if (world.isClient) {
+//            return ActionResult.SUCCESS;
+//        } else {
+//            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
+//            return ActionResult.CONSUME;
+//        }
+//    }
+//
+//    @Nullable
+//    protected NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+//        BlockEntity blockEntity = world.getBlockEntity(pos);
+//        if (blockEntity instanceof EnchantingTableLikeBlockEntity) {
+//            Text text = ((Nameable)blockEntity).getDisplayName();
+//            return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) -> new EnchantmentScreenHandler(syncId, inventory, ScreenHandlerContext.create(world, pos)), text);
+//        } else {
+//            return null;
+//        }
+//    }
 
     protected boolean canPathfindThrough(BlockState state, NavigationType type) {
         return false;
