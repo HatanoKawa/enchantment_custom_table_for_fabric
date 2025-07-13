@@ -22,13 +22,13 @@ public class EnchantmentUtils {
     public static RegistryEntry.Reference<Enchantment> translateEnchantment(World world, Enchantment enchantment) {
         if (world == null)
             return null;
-        Registry<Enchantment> fullEnchantmentRegistry = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT);
+        Registry<Enchantment> fullEnchantmentRegistry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
         RegistryKey<Enchantment> resourceKey = fullEnchantmentRegistry.getKey(enchantment).get();
         // 一些通过猜谜获得的逻辑，我不知道为什么要这么做，但是这么做能行
         Optional<RegistryEntry.Reference<Enchantment>> optional = world
                 .getRegistryManager()
-                .get(RegistryKeys.ENCHANTMENT)
-                .getEntry(resourceKey);
+                .getOrThrow(RegistryKeys.ENCHANTMENT)
+                .getOptional(resourceKey);
         return optional.get();
     }
 

@@ -288,7 +288,7 @@ public class EnchantmentConversionScreenHandler extends ScreenHandler {
 
     public void tryGetAllEnchantments() {
         if (allEnchantments.isEmpty()) {
-            Registry<Enchantment> fullEnchantmentList = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT);
+            Registry<Enchantment> fullEnchantmentList = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
             IndexedIterable<RegistryEntry<Enchantment>> allRegisteredEnchantments = fullEnchantmentList.getIndexedEntries();
             allRegisteredEnchantments.forEach(enchantment ->
                     allEnchantments.add(fullEnchantmentList.getRawId(enchantment.value())));
@@ -298,7 +298,7 @@ public class EnchantmentConversionScreenHandler extends ScreenHandler {
     public ItemStack getEnchantedBook(int enchantmentId) {
         ItemStack enchantedBook = new ItemStack(Items.ENCHANTED_BOOK);
 
-        Enchantment enchantment = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).get(enchantmentId);
+        Enchantment enchantment = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).get(enchantmentId);
         int enchantmentLevel = enchantment.getMaxLevel();
         var enchantmentReference = EnchantmentUtils.translateEnchantment(world, enchantment);
         assert enchantmentReference != null;

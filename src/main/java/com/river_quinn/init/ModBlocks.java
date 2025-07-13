@@ -6,50 +6,45 @@ import com.river_quinn.blocks.EnchantmentConversionTableBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroups;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
+import java.util.function.Function;
+
 public class ModBlocks {
 
-    public static Block register(Block block, String name, boolean shouldRegisterItem) {
-        // Register the block and its item.
-        Identifier id = Identifier.of(EnchantmentCustomTable.MOD_ID, name);
+    private static Block register(String path, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
+        final Identifier identifier = Identifier.of(EnchantmentCustomTable.MOD_ID, path);
+        final RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, identifier);
 
-        // Sometimes, you may not want to register an item for the block.
-        // Eg: if it's a technical block like `minecraft:air` or `minecraft:end_gateway`
-        if (shouldRegisterItem) {
-            BlockItem blockItem = new BlockItem(block, new Item.Settings());
-            Registry.register(Registries.ITEM, id, blockItem);
-        }
-
-        return Registry.register(Registries.BLOCK, id, block);
+        final Block block = Blocks.register(registryKey, factory, settings);
+        Items.register(block);
+        return block;
     }
 
     public static final Block ENCHANTING_CUSTOM_TABLE = register(
-            new EnchantingCustomTableBlock(
-                AbstractBlock.Settings
+            "enchanting_custom_table",
+            EnchantingCustomTableBlock::new,
+            AbstractBlock.Settings
                     .create()
                     .sounds(BlockSoundGroup.STONE)
                     .strength(1, 3600)
-                    .luminance(state -> 15)),
-            "enchanting_custom_table",
-            true
+                    .luminance(state -> 15)
     );
 
     public static final Block ENCHANTMENT_CONVERSION_TABLE = register(
-            new EnchantmentConversionTableBlock(
-                AbstractBlock.Settings
+            "enchantment_conversion_table",
+            EnchantmentConversionTableBlock::new,
+            AbstractBlock.Settings
                     .create()
                     .sounds(BlockSoundGroup.STONE)
                     .strength(1, 3600)
-                    .luminance(state -> 15)),
-            "enchantment_conversion_table",
-            true
+                    .luminance(state -> 15)
     );
 
     public static void initialize() {

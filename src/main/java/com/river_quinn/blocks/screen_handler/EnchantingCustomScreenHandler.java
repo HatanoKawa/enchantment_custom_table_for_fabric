@@ -578,7 +578,7 @@ public class EnchantingCustomScreenHandler extends ScreenHandler {
 
     // 获取所有已注册的附魔
     public IndexedIterable<RegistryEntry<Enchantment>> getAllRegisteredEnchantments() {
-        Registry<Enchantment> fullEnchantmentList = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT);
+        Registry<Enchantment> fullEnchantmentList = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
         return fullEnchantmentList.getIndexedEntries();
     }
 
