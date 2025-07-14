@@ -10,7 +10,10 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
+import net.minecraft.text.TextCodecs;
 import net.minecraft.util.Nameable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -37,17 +40,14 @@ public abstract class EnchantingTableLikeBlockEntity extends BlockEntity impleme
         super(t, pos, state);
     }
 
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.writeNbt(nbt, registryLookup);
-        if (this.hasCustomName()) {
-            nbt.putString("CustomName", Text.Serialization.toJsonString(this.customName, registryLookup));
-        }
-
+    protected void writeData(WriteView view) {
+        super.writeData(view);
+        view.putNullable("CustomName", TextCodecs.CODEC, this.customName);
     }
 
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
-        this.customName = tryParseCustomName(nbt.get("CustomName"), registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
+        this.customName = tryParseCustomName(view, "CustomName");
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, EnchantingTableLikeBlockEntity blockEntity) {

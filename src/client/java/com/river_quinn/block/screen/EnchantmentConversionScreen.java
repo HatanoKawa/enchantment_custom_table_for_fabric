@@ -4,6 +4,7 @@ import com.river_quinn.EnchantmentCustomTable;
 import com.river_quinn.blocks.screen_handler.EnchantmentConversionScreenHandler;
 import com.river_quinn.network.enchanted_book_converting_table.EnchantmentConversionTableNetData;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -56,7 +57,7 @@ public class EnchantmentConversionScreen extends HandledScreen<EnchantmentConver
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
-        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight,
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight,
                 this.backgroundWidth, this.backgroundHeight);
     }
 
