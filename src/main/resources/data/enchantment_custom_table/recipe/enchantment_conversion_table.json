@@ -1,23 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "pattern": [
-    "#B#",
-    "EQE",
-    "QQQ"
+    "LBL",
+    "E#E",
+    "###"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:lapis_block"
-    },
-    "B": {
-      "item": "minecraft:book"
-    },
-    "E": {
-      "item": "minecraft:emerald_block"
-    },
-    "Q": {
-      "item": "minecraft:quartz_block"
-    }
+    "#": "minecraft:quartz_block",
+    "B": "minecraft:book",
+    "E": "minecraft:emerald_block",
+    "L": "minecraft:lapis_block"
   },
   "result": {
     "id": "enchantment_custom_table:enchantment_conversion_table",

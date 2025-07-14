@@ -93,11 +93,8 @@ public class EnchantmentConversionScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public @Nullable Pair<Identifier, Identifier> getBackgroundSprite() {
-                return Pair.of(
-                        PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
-                        Identifier.tryParse("enchantment_custom_table:item/empty_slot_book")
-                );
+            public @Nullable Identifier getBackgroundSprite() {
+                return Identifier.tryParse("enchantment_custom_table:container/slot/empty_slot_book");
             }
         });
 
@@ -119,11 +116,8 @@ public class EnchantmentConversionScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public @Nullable Pair<Identifier, Identifier> getBackgroundSprite() {
-                return Pair.of(
-                        PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
-                        Identifier.tryParse("minecraft:item/empty_slot_emerald")
-                );
+            public @Nullable Identifier getBackgroundSprite() {
+                return Identifier.tryParse("minecraft:container/slot/emerald");
             }
         });
 
@@ -143,11 +137,8 @@ public class EnchantmentConversionScreenHandler extends ScreenHandler {
                         }
 
                         @Override
-                        public @Nullable Pair<Identifier, Identifier> getBackgroundSprite() {
-                            return Pair.of(
-                                    PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
-                                    Identifier.tryParse("enchantment_custom_table:item/empty_slot_book")
-                            );
+                        public @Nullable Identifier getBackgroundSprite() {
+                            return Identifier.tryParse("enchantment_custom_table:container/slot/empty_slot_book");
                         }
 
                         // setByPlayer in neoforge

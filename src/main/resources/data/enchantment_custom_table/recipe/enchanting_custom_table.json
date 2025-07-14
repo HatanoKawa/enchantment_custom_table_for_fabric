@@ -1,23 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "pattern": [
-    "#B#",
-    "DQD",
-    "QQQ"
+    "LBL",
+    "D#D",
+    "###"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:lapis_block"
-    },
-    "B": {
-      "item": "minecraft:book"
-    },
-    "D": {
-      "item": "minecraft:diamond_block"
-    },
-    "Q": {
-      "item": "minecraft:quartz_block"
-    }
+    "#": "minecraft:quartz_block",
+    "B": "minecraft:book",
+    "D": "minecraft:diamond_block",
+    "L": "minecraft:lapis_block"
   },
   "result": {
     "id": "enchantment_custom_table:enchanting_custom_table",
