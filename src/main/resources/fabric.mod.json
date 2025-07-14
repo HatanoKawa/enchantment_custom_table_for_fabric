@@ -3,13 +3,13 @@
 	"id": "enchantment_custom_table",
 	"version": "${version}",
 	"name": "enchantment_custom_table",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "A Minecraft block allowing players to customize enchantments on items freely.",
 	"authors": [
-		"Me!"
+		"River Quinn"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/mod/enchantment-custom-table",
+		"sources": "https://github.com/HatanoKawa/enchantment_custom_table_for_fabric"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/enchantment_custom_table/icon.png",
