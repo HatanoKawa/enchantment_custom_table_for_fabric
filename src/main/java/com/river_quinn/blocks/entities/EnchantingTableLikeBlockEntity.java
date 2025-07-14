@@ -1,10 +1,11 @@
 package com.river_quinn.blocks.entities;
 
-import com.river_quinn.init.ModBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.EnchantingTableBlockEntity;
 import net.minecraft.component.ComponentMap;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -44,12 +45,9 @@ public abstract class EnchantingTableLikeBlockEntity extends BlockEntity impleme
 
     }
 
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.readNbt(nbt, registryLookup);
-        if (nbt.contains("CustomName", 8)) {
-            this.customName = tryParseCustomName(nbt.getString("CustomName"), registryLookup);
-        }
-
+    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
+        this.customName = tryParseCustomName(nbt.get("CustomName"), registries);
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, EnchantingTableLikeBlockEntity blockEntity) {
@@ -121,7 +119,7 @@ public abstract class EnchantingTableLikeBlockEntity extends BlockEntity impleme
         return this.customName;
     }
 
-    protected void readComponents(BlockEntity.ComponentsAccess components) {
+    protected void readComponents(ComponentsAccess components) {
         super.readComponents(components);
         this.customName = (Text)components.get(DataComponentTypes.CUSTOM_NAME);
     }

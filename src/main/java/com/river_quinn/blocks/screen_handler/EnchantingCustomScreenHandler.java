@@ -87,7 +87,7 @@ public class EnchantingCustomScreenHandler extends ScreenHandler {
                 // 旧的物品槽对应的附魔书最多只有一种附魔
                 var enchantmentOnOldStack = getEnchantmentInstanceFromEnchantedBook(itemStackToReplace).get(0);
                 var hasDuplicateEnchantment = enchantmentsOnNewStack.stream().anyMatch(enchantment ->
-                        enchantment.enchantment.equals(enchantmentOnOldStack.enchantment));
+                        enchantment.enchantment().equals(enchantmentOnOldStack.enchantment()));
                 if (hasDuplicateEnchantment) {
                     // 如果新旧物品槽的对应的附魔书有重复的附魔，则直接添加到工具上，合并附魔并不返回旧的附魔书
                     addEnchantment(itemStackToPut, slotIndex, true);
@@ -606,17 +606,17 @@ public class EnchantingCustomScreenHandler extends ScreenHandler {
         //region 遍历放入的附魔书的附魔
 
         for (EnchantmentLevelEntry enchantmentInstance : enchantmentInstances) {
-            int enchantmentId = allRegisteredEnchantments.getRawId(enchantmentInstance.enchantment);
+            int enchantmentId = allRegisteredEnchantments.getRawId(enchantmentInstance.enchantment());
             if (resultEnchantmentMap.containsKey(enchantmentId)) {
                 regenerateEnchantedBookStore = true;
                 // 若附魔已经存在，直接相加两者的附魔等级
                 resultEnchantmentMap.put(enchantmentId, new EnchantmentLevelEntry(
-                        enchantmentInstance.enchantment,
-                        resultEnchantmentMap.get(enchantmentId).level + enchantmentInstance.level
+                        enchantmentInstance.enchantment(),
+                        resultEnchantmentMap.get(enchantmentId).level() + enchantmentInstance.level()
                 ));
             } else {
                 // 若附魔不存在，直接生成同样附魔等级的附魔
-                resultEnchantmentMap.put(enchantmentId, new EnchantmentLevelEntry(enchantmentInstance.enchantment, enchantmentInstance.level));
+                resultEnchantmentMap.put(enchantmentId, new EnchantmentLevelEntry(enchantmentInstance.enchantment(), enchantmentInstance.level()));
             }
         }
 
@@ -628,10 +628,10 @@ public class EnchantingCustomScreenHandler extends ScreenHandler {
         // 转换成可变形式
         ItemEnchantmentsComponent.Builder mutable = new ItemEnchantmentsComponent.Builder(itemEnchantments);
         for (EnchantmentLevelEntry enchantmentInstance : resultEnchantmentMap.values().stream().toList()) {
-            var enchantmentReference = EnchantmentUtils.translateEnchantment(world, enchantmentInstance.enchantment.value());
+            var enchantmentReference = EnchantmentUtils.translateEnchantment(world, enchantmentInstance.enchantment().value());
             assert enchantmentReference != null;
             // set 方法在 level 小于等于 0 时会移除对应附魔
-            mutable.set(enchantmentReference, enchantmentInstance.level);
+            mutable.set(enchantmentReference, enchantmentInstance.level());
         }
         toolItemStack.set(EnchantmentUtils.getEnchantmentsComponentType(toolItemStack), mutable.build());
         // endregion
@@ -652,14 +652,14 @@ public class EnchantingCustomScreenHandler extends ScreenHandler {
         // 转换成可变形式
         ItemEnchantmentsComponent.Builder mutable = new ItemEnchantmentsComponent.Builder(itemEnchantments);
         for (EnchantmentLevelEntry enchantmentInstance : enchantmentInstances) {
-            var enchantmentReference = EnchantmentUtils.translateEnchantment(world, enchantmentInstance.enchantment.value());
+            var enchantmentReference = EnchantmentUtils.translateEnchantment(world, enchantmentInstance.enchantment().value());
             var enchantmentLevelSource = containerInventory.getStack(0)
                     .get(EnchantmentUtils.getEnchantmentsComponentType(toolItemStack))
                     .getEnchantmentEntries().stream()
                     .filter(entry -> enchantmentReference.getKey().get().getRegistryRef()
                             == entry.getKey().getKey().get().getRegistryRef())
                     .findFirst().get().getIntValue();
-            var enchantmentLevelToMinus = enchantmentInstance.level;
+            var enchantmentLevelToMinus = enchantmentInstance.level();
 
             assert enchantmentReference != null;
             // set 方法在 level 小于等于 0 时会移除对应附魔

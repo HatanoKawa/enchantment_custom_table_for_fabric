@@ -3,6 +3,7 @@ package com.river_quinn.renderer;
 import com.river_quinn.blocks.entities.EnchantingTableLikeBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.entity.EnchantingTableBlockEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -16,6 +17,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec3d;
 
 @Environment(EnvType.CLIENT)
 public class EnchantingCustomTableBlockEntityRenderer implements BlockEntityRenderer<EnchantingTableLikeBlockEntity> {
@@ -26,7 +28,7 @@ public class EnchantingCustomTableBlockEntityRenderer implements BlockEntityRend
         this.book = new BookModel(ctx.getLayerModelPart(EntityModelLayers.BOOK));
     }
 
-    public void render(EnchantingTableLikeBlockEntity enchantingTableBlockEntity, float f, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j) {
+    public void render(EnchantingTableLikeBlockEntity enchantingTableBlockEntity, float f, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j, Vec3d vec3d) {
         matrixStack.push();
         matrixStack.translate(0.5F, 0.75F, 0.5F);
         float g = (float)enchantingTableBlockEntity.ticks + f;
@@ -49,7 +51,7 @@ public class EnchantingCustomTableBlockEntityRenderer implements BlockEntityRend
         float o = MathHelper.lerp(f, enchantingTableBlockEntity.pageTurningSpeed, enchantingTableBlockEntity.nextPageTurningSpeed);
         this.book.setPageAngles(g, MathHelper.clamp(m, 0.0F, 1.0F), MathHelper.clamp(n, 0.0F, 1.0F), o);
         VertexConsumer vertexConsumer = BOOK_TEXTURE.getVertexConsumer(vertexConsumerProvider, RenderLayer::getEntitySolid);
-        this.book.render(matrixStack, vertexConsumer, i, j, -1);
+        this.book.render(matrixStack, vertexConsumer, i, j);
         matrixStack.pop();
     }
 
